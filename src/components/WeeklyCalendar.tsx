@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronRight, Clock, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -79,6 +79,34 @@ export const WeeklyCalendar = () => {
     newDate.setDate(currentWeek.getDate() + (direction === 'next' ? 7 : -7));
     setCurrentWeek(newDate);
   };
+
+  // Get dynamic time slots - only show times that have scheduled blocks
+  const dynamicTimeSlots = useMemo(() => {
+    const occupiedHours = new Set<number>();
+    
+    timeBlocks.forEach(block => {
+      // Parse start and end times to get hour ranges
+      const startHour = parseInt(block.startTime.split(':')[0]);
+      const endHour = parseInt(block.endTime.split(':')[0]);
+      
+      // Add hours for this block
+      for (let hour = startHour; hour <= endHour; hour++) {
+        occupiedHours.add(hour);
+      }
+    });
+
+    // Convert to array and sort, then map to time slot format
+    return Array.from(occupiedHours)
+      .sort((a, b) => a - b)
+      .map(hour => {
+        const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+        const period = hour < 12 ? 'AM' : 'PM';
+        return {
+          hour,
+          display: `${displayHour}:00 ${period}`
+        };
+      });
+  }, [timeBlocks]);
 
   const handleSlotClick = (day: number, hour: number) => {
     setSelectedSlot({ day, hour });
@@ -171,35 +199,55 @@ export const WeeklyCalendar = () => {
                 <div className="text-lg font-semibold text-foreground mt-1">
                   {date.getDate()}
                 </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  {date.getDate()}.{date.getMonth() + 1}.
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Time Grid */}
+          {/* Time Grid - Dynamic Time Slots */}
           <div className="relative">
-            {timeSlots.map((time, hourIndex) => (
-              <div key={hourIndex} className="grid grid-cols-8 gap-px bg-grid-line mb-px">
-                {/* Time Label */}
-                <div className="bg-card p-3 border-r border-grid-line">
-                  <span className="text-xs text-muted-foreground">{time}</span>
+            {dynamicTimeSlots.length > 0 ? (
+              dynamicTimeSlots.map((timeSlot, index) => (
+                <div key={index} className="grid grid-cols-8 gap-px bg-grid-line mb-px">
+                  {/* Time Label */}
+                  <div className="bg-card p-3 border-r border-grid-line">
+                    <span className="text-xs text-muted-foreground">{timeSlot.display}</span>
+                  </div>
+                  
+                  {/* Day Columns */}
+                  {Array.from({ length: 7 }, (_, dayIndex) => (
+                    <div
+                      key={dayIndex}
+                      className={cn(
+                        'bg-card p-3 min-h-[60px] border-r border-grid-line cursor-pointer transition-colors relative',
+                        'hover:bg-grid-hover',
+                        selectedSlot?.day === dayIndex && selectedSlot?.hour === timeSlot.hour && 'bg-primary-light'
+                      )}
+                      onClick={() => handleSlotClick(dayIndex, timeSlot.hour)}
+                    >
+                      {/* Time blocks will be positioned absolutely over these cells */}
+                    </div>
+                  ))}
                 </div>
-                
-                {/* Day Columns */}
+              ))
+            ) : (
+              // Show message when no blocks are scheduled
+              <div className="grid grid-cols-8 gap-px bg-grid-line mb-px">
+                <div className="bg-card p-3 border-r border-grid-line">
+                  <span className="text-xs text-muted-foreground">--</span>
+                </div>
                 {Array.from({ length: 7 }, (_, dayIndex) => (
                   <div
                     key={dayIndex}
-                    className={cn(
-                      'bg-card p-3 min-h-[60px] border-r border-grid-line cursor-pointer transition-colors relative',
-                      'hover:bg-grid-hover',
-                      selectedSlot?.day === dayIndex && selectedSlot?.hour === hourIndex && 'bg-primary-light'
-                    )}
-                    onClick={() => handleSlotClick(dayIndex, hourIndex)}
+                    className="bg-card p-8 border-r border-grid-line text-center"
                   >
-                    {/* Time blocks will be positioned absolutely over these cells */}
+                    <span className="text-sm text-muted-foreground">No scheduled blocks</span>
                   </div>
                 ))}
               </div>
-            ))}
+            )}
             
             {/* Render time blocks */}
             {timeBlocks.map(renderTimeBlock)}
@@ -207,17 +255,6 @@ export const WeeklyCalendar = () => {
         </div>
       </div>
 
-      {/* Footer with suggestions */}
-      <div className="mt-6 pt-4 border-t border-border">
-        <div className="flex items-center justify-between">
-          <div className="text-sm text-muted-foreground">
-            <span className="font-medium">Stretch suggests:</span> Add a 15-minute break after your focus block
-          </div>
-          <Button variant="outline" size="sm">
-            Apply Suggestion
-          </Button>
-        </div>
-      </div>
     </Card>
   );
 };
