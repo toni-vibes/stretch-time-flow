@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, Clock, MoreHorizontal } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, MoreHorizontal, Lightbulb } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -73,6 +73,10 @@ export const WeeklyCalendar = () => {
   };
 
   const weekDates = getCurrentWeekDates();
+  const today = new Date();
+  const currentDayIndex = weekDates.findIndex(date => 
+    date.toDateString() === today.toDateString()
+  );
 
   const navigateWeek = (direction: 'prev' | 'next') => {
     const newDate = new Date(currentWeek);
@@ -161,7 +165,7 @@ export const WeeklyCalendar = () => {
   return (
     <Card className="p-6 shadow-soft">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-4">
           <h2 className="text-xl font-semibold text-foreground">Weekly View</h2>
           <div className="text-sm text-muted-foreground">
@@ -183,6 +187,21 @@ export const WeeklyCalendar = () => {
         </div>
       </div>
 
+      {/* Optimization Suggestions Bar */}
+      <div className="mb-6 p-3 rounded-lg bg-muted/30 border border-border">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Lightbulb className="w-4 h-4 text-primary" />
+            <span className="text-sm text-muted-foreground">
+              <span className="font-medium">Stretch suggests:</span> Add a 15-minute break after your focus block
+            </span>
+          </div>
+          <Button variant="outline" size="sm">
+            Apply Suggestion
+          </Button>
+        </div>
+      </div>
+
       {/* Calendar Grid */}
       <div className="overflow-x-auto">
         <div className="min-w-full">
@@ -192,7 +211,13 @@ export const WeeklyCalendar = () => {
               <span className="text-sm font-medium text-muted-foreground">Time</span>
             </div>
             {weekDates.map((date, index) => (
-              <div key={index} className="bg-grid-header p-3 text-center">
+              <div 
+                key={index} 
+                className={cn(
+                  "bg-grid-header p-3 text-center",
+                  currentDayIndex === index && "bg-primary/10"
+                )}
+              >
                 <div className="text-sm font-medium text-foreground">
                   {daysOfWeek[index]}
                 </div>
@@ -216,20 +241,21 @@ export const WeeklyCalendar = () => {
                     <span className="text-xs text-muted-foreground">{timeSlot.display}</span>
                   </div>
                   
-                  {/* Day Columns */}
-                  {Array.from({ length: 7 }, (_, dayIndex) => (
-                    <div
-                      key={dayIndex}
-                      className={cn(
-                        'bg-card p-3 min-h-[60px] border-r border-grid-line cursor-pointer transition-colors relative',
-                        'hover:bg-grid-hover',
-                        selectedSlot?.day === dayIndex && selectedSlot?.hour === timeSlot.hour && 'bg-primary-light'
-                      )}
-                      onClick={() => handleSlotClick(dayIndex, timeSlot.hour)}
-                    >
-                      {/* Time blocks will be positioned absolutely over these cells */}
-                    </div>
-                  ))}
+                   {/* Day Columns */}
+                   {Array.from({ length: 7 }, (_, dayIndex) => (
+                     <div
+                       key={dayIndex}
+                       className={cn(
+                         'bg-card p-3 min-h-[60px] border-r border-grid-line cursor-pointer transition-colors relative',
+                         'hover:bg-grid-hover',
+                         selectedSlot?.day === dayIndex && selectedSlot?.hour === timeSlot.hour && 'bg-primary-light',
+                         currentDayIndex === dayIndex && 'bg-primary/5'
+                       )}
+                       onClick={() => handleSlotClick(dayIndex, timeSlot.hour)}
+                     >
+                       {/* Time blocks will be positioned absolutely over these cells */}
+                     </div>
+                   ))}
                 </div>
               ))
             ) : (
@@ -241,7 +267,10 @@ export const WeeklyCalendar = () => {
                 {Array.from({ length: 7 }, (_, dayIndex) => (
                   <div
                     key={dayIndex}
-                    className="bg-card p-8 border-r border-grid-line text-center"
+                    className={cn(
+                      "bg-card p-8 border-r border-grid-line text-center",
+                      currentDayIndex === dayIndex && 'bg-primary/5'
+                    )}
                   >
                     <span className="text-sm text-muted-foreground">No scheduled blocks</span>
                   </div>

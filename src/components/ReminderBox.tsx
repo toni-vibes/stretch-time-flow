@@ -24,7 +24,7 @@ export const ReminderBox = ({ reminders }: ReminderBoxProps) => {
     <Card className="p-4 shadow-soft bg-primary/5 border-primary/20">
       <div className="flex items-center gap-3 mb-3">
         <Bell className="w-5 h-5 text-primary" />
-        <h2 className="text-lg font-medium text-foreground">Today's Reminders</h2>
+        <h2 className="text-lg font-medium text-foreground">Reminders</h2>
       </div>
       
       <div className="space-y-2">

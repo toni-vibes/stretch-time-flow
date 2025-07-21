@@ -33,10 +33,6 @@ const Index = () => {
           <ReminderBox reminders={todayReminders} />
         </div>
 
-        {/* Optimization Suggestions Box */}
-        <div className="mb-6">
-          <OptimizationSuggestions />
-        </div>
 
         {/* Weekly Schedule - Modified Display */}
         <div className="mb-6">

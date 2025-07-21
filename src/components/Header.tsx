@@ -1,7 +1,11 @@
-import { Calendar, Settings, Bell } from 'lucide-react';
+import React, { useState } from 'react';
+import { Calendar, User, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ProfileMenu } from '@/components/ProfileMenu';
 
 export const Header = () => {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
   return (
     <header className="border-b border-border bg-card">
       <div className="max-w-7xl mx-auto px-6 py-4">
@@ -23,13 +27,23 @@ export const Header = () => {
               <Bell className="w-4 h-4" />
               Reminders
             </Button>
-            <Button variant="ghost" size="sm" className="gap-2">
-              <Settings className="w-4 h-4" />
-              Settings
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="gap-2"
+              onClick={() => setIsProfileOpen(true)}
+            >
+              <User className="w-4 h-4" />
+              Profile
             </Button>
           </div>
         </div>
       </div>
+      
+      <ProfileMenu 
+        isOpen={isProfileOpen} 
+        onClose={() => setIsProfileOpen(false)} 
+      />
     </header>
   );
 };
