@@ -117,47 +117,50 @@ export const WeeklyCalendar = () => {
     // TODO: Open time block creation modal
   };
 
-  const renderTimeBlock = (block: TimeBlock) => {
-    const dayColumn = block.day + 1; // +1 for the time column
+  const renderTimeBlock = (block: TimeBlock, timeSlotIndex: number) => {
+    // Calculate the row position based on the time slot index
+    const rowPosition = timeSlotIndex * 80; // 80px per row (60px min-height + 20px spacing)
+    
     return (
       <div
         key={block.id}
         className={cn(
-          'absolute left-0 right-0 mx-1 p-2 rounded-md shadow-subtle cursor-pointer group transition-all duration-200',
+          'absolute left-1 right-1 p-3 rounded-lg shadow-sm cursor-pointer group transition-all duration-200 z-10',
           `bg-${block.categoryColor}/10 border border-${block.categoryColor}/20 hover:bg-${block.categoryColor}/20`
         )}
         style={{
-          gridColumn: dayColumn + 1,
-          top: '0',
-          height: '80px', // Adjust based on time span
-          zIndex: 10,
+          gridColumn: block.day + 2, // +2 for the time column
+          top: `${rowPosition + 4}px`, // Small offset from top of row
+          height: '72px', // Fixed height to prevent overlap
+          marginBottom: '8px'
         }}
       >
-        <div className="flex items-start justify-between">
-          <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between h-full">
+          <div className="flex-1 min-w-0 space-y-1">
             <div className="text-sm font-medium text-foreground truncate">
               {block.title}
             </div>
-            <div className="text-xs text-muted-foreground mt-1">
+            <div className="text-xs text-muted-foreground">
               {block.startTime} - {block.endTime}
             </div>
-            <div className="flex items-center gap-1 mt-1">
+            <div className="flex items-center gap-1">
               <div className={`w-2 h-2 rounded-full bg-${block.categoryColor}`} />
-              <span className="text-xs text-muted-foreground">{block.category}</span>
+              <span className="text-xs text-muted-foreground truncate">{block.category}</span>
             </div>
           </div>
-          {block.hasReminder && (
-            <Clock className="w-3 h-3 text-primary mt-1" />
-          )}
+          <div className="flex items-start gap-1">
+            {block.hasReminder && (
+              <Clock className="w-3 h-3 text-primary flex-shrink-0" />
+            )}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+            >
+              <MoreHorizontal className="w-3 h-3" />
+            </Button>
+          </div>
         </div>
-        
-        <Button
-          variant="ghost"
-          size="icon"
-          className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity absolute top-1 right-1"
-        >
-          <MoreHorizontal className="w-3 h-3" />
-        </Button>
       </div>
     );
   };
@@ -246,14 +249,15 @@ export const WeeklyCalendar = () => {
                      <div
                        key={dayIndex}
                        className={cn(
-                         'bg-card p-3 min-h-[60px] border-r border-grid-line cursor-pointer transition-colors relative',
+                         'bg-card p-3 border-r border-grid-line cursor-pointer transition-colors relative',
                          'hover:bg-grid-hover',
                          selectedSlot?.day === dayIndex && selectedSlot?.hour === timeSlot.hour && 'bg-primary-light',
                          currentDayIndex === dayIndex && 'bg-primary/5'
                        )}
+                       style={{ minHeight: '80px' }}
                        onClick={() => handleSlotClick(dayIndex, timeSlot.hour)}
                      >
-                       {/* Time blocks will be positioned absolutely over these cells */}
+                       {/* Empty cell - time blocks will be absolutely positioned */}
                      </div>
                    ))}
                 </div>
@@ -279,7 +283,28 @@ export const WeeklyCalendar = () => {
             )}
             
             {/* Render time blocks */}
-            {timeBlocks.map(renderTimeBlock)}
+            <div className="absolute inset-0 pointer-events-none">
+              {timeBlocks.map((block) => {
+                // Find which time slot this block belongs to
+                const timeSlotIndex = dynamicTimeSlots.findIndex(slot => {
+                  const blockStartHour = parseInt(block.startTime.split(':')[0]);
+                  const blockStartPeriod = block.startTime.includes('PM') ? 'PM' : 'AM';
+                  let adjustedBlockHour = blockStartHour;
+                  
+                  if (blockStartPeriod === 'PM' && blockStartHour !== 12) {
+                    adjustedBlockHour += 12;
+                  } else if (blockStartPeriod === 'AM' && blockStartHour === 12) {
+                    adjustedBlockHour = 0;
+                  }
+                  
+                  return slot.hour === adjustedBlockHour;
+                });
+                
+                if (timeSlotIndex === -1) return null;
+                
+                return renderTimeBlock(block, timeSlotIndex);
+              })}
+            </div>
           </div>
         </div>
       </div>
