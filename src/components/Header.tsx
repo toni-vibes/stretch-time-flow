@@ -24,12 +24,12 @@ export const Header = () => {
           {/* Actions */}
           <div className="flex items-center gap-2">
             <Button 
-              variant="ghost" 
-              size="sm" 
-              className="gap-2"
+              variant="outline" 
+              size="default" 
+              className="gap-2 px-4 py-2"
               onClick={() => setIsProfileOpen(true)}
             >
-              <User className="w-4 h-4" />
+              <User className="w-5 h-5" />
               Profile
             </Button>
           </div>

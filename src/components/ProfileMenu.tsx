@@ -38,12 +38,12 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
     <>
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/20 z-40"
+        className="fixed inset-0 bg-black/50 z-40"
         onClick={onClose}
       />
       
-      {/* Profile Menu Modal */}
-      <Card className="fixed top-16 right-6 w-96 p-0 shadow-lg z-50 bg-card border border-border">
+      {/* Profile Menu Modal - Centered */}
+      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 p-0 shadow-xl z-50 bg-card border border-border rounded-lg">
         <div className="flex items-center justify-between p-4 border-b border-border">
           <h3 className="text-lg font-semibold text-foreground">Profile Settings</h3>
           <Button variant="ghost" size="sm" onClick={onClose}>

@@ -125,30 +125,31 @@ export const WeeklyCalendar = () => {
       <div
         key={block.id}
         className={cn(
-          'absolute left-1 right-1 p-3 rounded-lg shadow-sm cursor-pointer group transition-all duration-200 z-10',
+          'absolute left-1 right-1 p-4 rounded-lg shadow-sm cursor-pointer group transition-all duration-200 z-10',
           `bg-${block.categoryColor}/10 border border-${block.categoryColor}/20 hover:bg-${block.categoryColor}/20`
         )}
         style={{
           gridColumn: block.day + 2, // +2 for the time column
           top: `${rowPosition + 4}px`, // Small offset from top of row
-          height: '72px', // Fixed height to prevent overlap
+          height: 'auto', // Auto height to fit content
+          minHeight: '72px', // Minimum height to prevent overlap
           marginBottom: '8px'
         }}
       >
-        <div className="flex items-start justify-between h-full">
-          <div className="flex-1 min-w-0 space-y-1">
-            <div className="text-sm font-medium text-foreground truncate">
+        <div className="flex items-start justify-between">
+          <div className="flex-1 min-w-0 space-y-2">
+            <div className="text-sm font-semibold text-foreground leading-tight">
               {block.title}
             </div>
-            <div className="text-xs text-muted-foreground">
+            <div className="text-xs text-muted-foreground leading-tight">
               {block.startTime} - {block.endTime}
             </div>
             <div className="flex items-center gap-1">
-              <div className={`w-2 h-2 rounded-full bg-${block.categoryColor}`} />
-              <span className="text-xs text-muted-foreground truncate">{block.category}</span>
+              <div className={`w-2 h-2 rounded-full bg-${block.categoryColor} flex-shrink-0`} />
+              <span className="text-xs text-muted-foreground leading-tight">{block.category}</span>
             </div>
           </div>
-          <div className="flex items-start gap-1">
+          <div className="flex items-start gap-1 ml-2">
             {block.hasReminder && (
               <Clock className="w-3 h-3 text-primary flex-shrink-0" />
             )}
