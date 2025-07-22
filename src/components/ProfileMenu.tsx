@@ -49,7 +49,7 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
       />
       
       {/* Profile Menu Modal - Centered Rectangle */}
-      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[640px] h-[480px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden">
+      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[640px] h-[560px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
           <h3 className="text-lg font-semibold text-foreground">Profile Settings</h3>
@@ -146,23 +146,22 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
                 </div>
 
                 {/* Save Changes */}
-                <Button className="w-full" size="sm">Save Changes</Button>
+                <Button className="w-full">Save Changes</Button>
 
                 {/* Spacer to push logout and delete to bottom */}
                 <div className="flex-1" />
 
                 {/* Bottom Actions */}
-                <div className="space-y-2 pt-2 border-t border-border">
+                <div className="space-y-2 pt-2 border-t border-border pb-4">
                   <Button 
                     variant="outline" 
-                    className="w-full gap-2" 
-                    size="sm"
+                    className="w-full gap-2"
                     onClick={handleLogout}
                   >
                     <LogOut className="w-4 h-4" />
                     Log Out
                   </Button>
-                  <Button variant="destructive" className="w-full gap-2" size="sm">
+                  <Button variant="destructive" className="w-full gap-2">
                     <Trash2 className="w-4 h-4" />
                     Delete Account
                   </Button>
