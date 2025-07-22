@@ -48,8 +48,8 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
         onClick={onClose}
       />
       
-      {/* Profile Menu Modal - Centered Square */}
-      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden">
+      {/* Profile Menu Modal - Centered Rectangle */}
+      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[640px] h-[480px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
           <h3 className="text-lg font-semibold text-foreground">Profile Settings</h3>
