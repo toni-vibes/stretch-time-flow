@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { User, Settings, Upload, Eye, EyeOff, Trash2, X } from 'lucide-react';
+import { User, Settings, Upload, Eye, EyeOff, Trash2, X, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface ProfileMenuProps {
   isOpen: boolean;
@@ -13,6 +12,7 @@ interface ProfileMenuProps {
 }
 
 export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
+  const [activeTab, setActiveTab] = useState<'account' | 'display'>('account');
   const [darkMode, setDarkMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -34,6 +34,12 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
     document.documentElement.classList.toggle('dark', checked);
   };
 
+  const handleLogout = () => {
+    // In a real app, this would handle logout logic
+    console.log('Logging out...');
+    onClose();
+  };
+
   return (
     <>
       {/* Backdrop */}
@@ -42,8 +48,9 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
         onClick={onClose}
       />
       
-      {/* Profile Menu Modal - Centered */}
-      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 p-0 shadow-xl z-50 bg-card border border-border rounded-lg">
+      {/* Profile Menu Modal - Centered Square */}
+      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden">
+        {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
           <h3 className="text-lg font-semibold text-foreground">Profile Settings</h3>
           <Button variant="ghost" size="sm" onClick={onClose}>
@@ -51,103 +58,140 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
           </Button>
         </div>
 
-        <Tabs defaultValue="account" className="w-full">
-          <TabsList className="w-full grid grid-cols-2 m-4 mb-0">
-            <TabsTrigger value="account">Account</TabsTrigger>
-            <TabsTrigger value="display">Display</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="account" className="p-4 space-y-4">
-            {/* Username */}
-            <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                value={formData.username}
-                onChange={(e) => handleInputChange('username', e.target.value)}
-              />
-            </div>
-
-            {/* Profile Photo */}
-            <div className="space-y-2">
-              <Label>Profile Photo</Label>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                  <User className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <Button variant="outline" size="sm" className="gap-2">
-                  <Upload className="w-4 h-4" />
-                  Upload Photo
-                </Button>
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-              />
-            </div>
-
-            {/* Change Password */}
-            <div className="space-y-2">
-              <Label htmlFor="password">New Password</Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  value={formData.newPassword}
-                  onChange={(e) => handleInputChange('newPassword', e.target.value)}
-                  placeholder="Enter new password"
-                />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="absolute right-1 top-1 h-8 w-8 p-0"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </Button>
-              </div>
-            </div>
-
-            {/* Save Changes */}
-            <Button className="w-full">Save Changes</Button>
-
-            {/* Delete Account */}
-            <div className="pt-4 border-t border-border">
-              <Button variant="destructive" className="w-full gap-2">
-                <Trash2 className="w-4 h-4" />
-                Delete Account
+        {/* Main Content Area */}
+        <div className="flex h-[calc(100%-64px)]">
+          {/* Left Sidebar Menu */}
+          <div className="w-32 border-r border-border bg-muted/20">
+            <div className="p-2">
+              <Button
+                variant={activeTab === 'account' ? 'default' : 'ghost'}
+                size="sm"
+                className="w-full justify-start mb-1 text-sm"
+                onClick={() => setActiveTab('account')}
+              >
+                <User className="w-4 h-4 mr-2" />
+                Account
+              </Button>
+              <Button
+                variant={activeTab === 'display' ? 'default' : 'ghost'}
+                size="sm"
+                className="w-full justify-start text-sm"
+                onClick={() => setActiveTab('display')}
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Display
               </Button>
             </div>
-          </TabsContent>
+          </div>
 
-          <TabsContent value="display" className="p-4 space-y-4">
-            <div className="space-y-4">
-              <div>
-                <h4 className="text-sm font-medium text-foreground mb-3">Theme Preferences</h4>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <Label htmlFor="dark-mode">Dark Mode</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Switch between light and dark themes
-                    </p>
-                  </div>
-                  <Switch
-                    id="dark-mode"
-                    checked={darkMode}
-                    onCheckedChange={handleThemeToggle}
+          {/* Right Content Area */}
+          <div className="flex-1 p-4 overflow-y-auto">
+            {activeTab === 'account' && (
+              <div className="space-y-4 h-full flex flex-col">
+                {/* Username */}
+                <div className="space-y-2">
+                  <Label htmlFor="username">Username</Label>
+                  <Input
+                    id="username"
+                    value={formData.username}
+                    onChange={(e) => handleInputChange('username', e.target.value)}
                   />
                 </div>
+
+                {/* Profile Photo */}
+                <div className="space-y-2">
+                  <Label>Profile Photo</Label>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                      <User className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <Button variant="outline" size="sm" className="gap-2">
+                      <Upload className="w-3 h-3" />
+                      Upload
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                  />
+                </div>
+
+                {/* Change Password */}
+                <div className="space-y-2">
+                  <Label htmlFor="password">New Password</Label>
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      value={formData.newPassword}
+                      onChange={(e) => handleInputChange('newPassword', e.target.value)}
+                      placeholder="Enter new password"
+                    />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-1 top-1 h-6 w-6 p-0"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Save Changes */}
+                <Button className="w-full" size="sm">Save Changes</Button>
+
+                {/* Spacer to push logout and delete to bottom */}
+                <div className="flex-1" />
+
+                {/* Bottom Actions */}
+                <div className="space-y-2 pt-2 border-t border-border">
+                  <Button 
+                    variant="outline" 
+                    className="w-full gap-2" 
+                    size="sm"
+                    onClick={handleLogout}
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Log Out
+                  </Button>
+                  <Button variant="destructive" className="w-full gap-2" size="sm">
+                    <Trash2 className="w-4 h-4" />
+                    Delete Account
+                  </Button>
+                </div>
               </div>
-            </div>
-          </TabsContent>
-        </Tabs>
+            )}
+
+            {activeTab === 'display' && (
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-medium text-foreground mb-3">Theme Preferences</h4>
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <Label htmlFor="dark-mode">Dark Mode</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Switch between light and dark themes
+                      </p>
+                    </div>
+                    <Switch
+                      id="dark-mode"
+                      checked={darkMode}
+                      onCheckedChange={handleThemeToggle}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </Card>
     </>
   );
