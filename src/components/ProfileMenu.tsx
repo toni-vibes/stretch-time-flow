@@ -87,86 +87,77 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
           {/* Right Content Area */}
           <div className="flex-1 p-4 overflow-y-auto">
             {activeTab === 'account' && (
-              <div className="space-y-4 h-full flex flex-col">
-                {/* Username */}
-                <div className="space-y-2">
-                  <Label htmlFor="username">Username</Label>
-                  <Input
-                    id="username"
-                    value={formData.username}
-                    onChange={(e) => handleInputChange('username', e.target.value)}
-                  />
-                </div>
-
-                {/* Profile Photo */}
-                <div className="space-y-2">
-                  <Label>Profile Photo</Label>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                      <User className="w-5 h-5 text-primary-foreground" />
-                    </div>
-                    <Button variant="outline" size="sm" className="gap-2">
-                      <Upload className="w-3 h-3" />
-                      Upload
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                  />
-                </div>
-
-                {/* Change Password */}
-                <div className="space-y-2">
-                  <Label htmlFor="password">New Password</Label>
-                  <div className="relative">
+              <Card className="h-full p-4 border border-border">
+                <div className="space-y-4 h-full flex flex-col">
+                  {/* Username */}
+                  <div className="space-y-2">
+                    <Label htmlFor="username">Username</Label>
                     <Input
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      value={formData.newPassword}
-                      onChange={(e) => handleInputChange('newPassword', e.target.value)}
-                      placeholder="Enter new password"
+                      id="username"
+                      value={formData.username}
+                      onChange={(e) => handleInputChange('username', e.target.value)}
                     />
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-1 top-1 h-6 w-6 p-0"
-                      onClick={() => setShowPassword(!showPassword)}
+                  </div>
+
+                  {/* Email */}
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                    />
+                  </div>
+
+                  {/* Change Password */}
+                  <div className="space-y-2">
+                    <Label htmlFor="password">New Password</Label>
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        value={formData.newPassword}
+                        onChange={(e) => handleInputChange('newPassword', e.target.value)}
+                        placeholder="Enter new password"
+                      />
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="absolute right-1 top-1 h-6 w-6 p-0"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Save Changes */}
+                  <Button className="w-full">Save Changes</Button>
+
+                  {/* Spacer to push logout and delete to bottom */}
+                  <div className="flex-1" />
+
+                  {/* Bottom Actions */}
+                  <div className="space-y-2 pt-2 border-t border-border">
+                    <Button 
+                      variant="outline" 
+                      className="w-full gap-2"
+                      onClick={handleLogout}
                     >
-                      {showPassword ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                      <LogOut className="w-4 h-4" />
+                      Log Out
+                    </Button>
+                    <Button variant="destructive" className="w-full gap-2">
+                      <Trash2 className="w-4 h-4" />
+                      Delete Account
                     </Button>
                   </div>
+
+                  {/* Bottom line with spacing */}
+                  <div className="pt-4 border-t border-border pb-6" />
                 </div>
-
-                {/* Save Changes */}
-                <Button className="w-full">Save Changes</Button>
-
-                {/* Spacer to push logout and delete to bottom */}
-                <div className="flex-1" />
-
-                {/* Bottom Actions */}
-                <div className="space-y-2 pt-2 border-t border-border pb-4">
-                  <Button 
-                    variant="outline" 
-                    className="w-full gap-2"
-                    onClick={handleLogout}
-                  >
-                    <LogOut className="w-4 h-4" />
-                    Log Out
-                  </Button>
-                  <Button variant="destructive" className="w-full gap-2">
-                    <Trash2 className="w-4 h-4" />
-                    Delete Account
-                  </Button>
-                </div>
-              </div>
+              </Card>
             )}
 
             {activeTab === 'display' && (
