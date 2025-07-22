@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { User, Settings, Upload, Eye, EyeOff, Trash2, X, LogOut } from 'lucide-react';
+import { User, Settings, Eye, EyeOff, Trash2, X, LogOut } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -12,6 +13,7 @@ interface ProfileMenuProps {
 }
 
 export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'account' | 'display'>('account');
   const [darkMode, setDarkMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -35,9 +37,8 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
   };
 
   const handleLogout = () => {
-    // In a real app, this would handle logout logic
-    console.log('Logging out...');
     onClose();
+    navigate('/logout');
   };
 
   return (
@@ -49,7 +50,7 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
       />
       
       {/* Profile Menu Modal - Centered Rectangle */}
-      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[640px] h-[560px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden">
+      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[720px] h-[600px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
           <h3 className="text-lg font-semibold text-foreground">Profile Settings</h3>
@@ -85,7 +86,7 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
           </div>
 
           {/* Right Content Area */}
-          <div className="flex-1 p-4 overflow-y-auto">
+          <div className="flex-1 p-4">
             {activeTab === 'account' && (
               <Card className="h-full p-4 border border-border">
                 <div className="space-y-4 h-full flex flex-col">
