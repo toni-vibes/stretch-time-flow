@@ -56,7 +56,7 @@ const sampleBlocks: TimeBlock[] = [
 
 export const WeeklyCalendar = () => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
-  const [timeBlocks, setTimeBlocks] = useState<TimeBlock[]>(sampleBlocks);
+  const [timeBlocks, setTimeBlocks] = useState<TimeBlock[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<{day: number, hour: number} | null>(null);
 
   const getCurrentWeekDates = () => {
