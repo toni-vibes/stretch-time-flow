@@ -24,6 +24,9 @@ export const ReminderBox = ({ reminders, onDismiss }: ReminderBoxProps) => {
     // Delay the actual removal to allow fade animation
     setTimeout(() => {
       onDismiss(reminderId);
+      // TODO: When Analytics feature is added, store dismissed reminder data here
+      // This should save: { reminderId, dismissedAt: new Date(), ...reminderData }
+      // so it can be retrieved and restored to main screen later
     }, 300);
   };
 

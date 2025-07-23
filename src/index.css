@@ -93,33 +93,34 @@ All colors MUST be HSL for proper theming
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Discord-inspired softer dark theme with less harsh contrast */
+    --background: 220 7% 14%;          /* Softer dark background #2f3136 */
+    --foreground: 210 11% 85%;         /* Softer white text */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 7% 18%;                /* Slightly lighter cards #36393f */
+    --card-foreground: 210 11% 85%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 7% 18%;
+    --popover-foreground: 210 11% 85%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 158 64% 52%;            /* Keep the green primary */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 6% 21%;           /* Softer secondary #40444b */
+    --secondary-foreground: 210 11% 85%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 6% 21%;               /* Muted backgrounds */
+    --muted-foreground: 215 9% 65%;    /* Softer muted text */
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 220 6% 21%;              /* Accent same as muted */
+    --accent-foreground: 210 11% 85%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 65% 55%;          /* Softer red */
+    --destructive-foreground: 210 11% 85%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 220 6% 23%;              /* Softer borders */
+    --input: 220 6% 23%;               /* Input backgrounds */
+    --ring: 158 64% 52%;               /* Focus ring green */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

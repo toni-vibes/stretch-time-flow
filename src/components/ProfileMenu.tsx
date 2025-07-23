@@ -49,8 +49,8 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
         onClick={onClose}
       />
       
-      {/* Profile Menu Modal - Centered Rectangle */}
-      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[720px] h-[600px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden">
+      {/* Profile Menu Modal - Centered Rectangle with bottom spacing */}
+      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[720px] h-[600px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden mb-8">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
           <h3 className="text-lg font-semibold text-foreground">Profile Settings</h3>
@@ -136,8 +136,8 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
                   {/* Save Changes */}
                   <Button className="w-full">Save Changes</Button>
 
-                  {/* Spacer to push logout and delete to bottom */}
-                  <div className="flex-1" />
+                  {/* Spacer to push logout and delete to bottom - reduced spacing */}
+                  <div className="flex-1 min-h-[2rem]" />
 
                   {/* Bottom Actions */}
                   <div className="space-y-2 pt-2 border-t border-border">
