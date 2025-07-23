@@ -129,6 +129,11 @@ All colors MUST be HSL for proper theming
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Grid specific colors for dark mode */
+    --grid-line: 220 6% 25%;
+    --grid-header: 220 6% 19%;           /* Darker header background */
+    --time-slot-hover: 220 6% 23%;
   }
 }
 
