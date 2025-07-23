@@ -222,10 +222,10 @@ export const WeeklyCalendar = () => {
                   currentDayIndex === index && "bg-primary/10"
                 )}
               >
-                <div className="text-sm font-medium text-foreground">
+                <div className="text-sm font-medium text-muted-foreground">
                   {daysOfWeek[index]}
                 </div>
-                <div className="text-lg font-semibold text-foreground mt-1">
+                <div className="text-lg font-semibold text-card-foreground mt-1">
                   {date.getDate()}
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">
