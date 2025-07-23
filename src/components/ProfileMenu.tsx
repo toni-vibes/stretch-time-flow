@@ -155,8 +155,6 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
                     </Button>
                   </div>
 
-                  {/* Bottom line with spacing */}
-                  <div className="pt-4 border-t border-border pb-6" />
                 </div>
               </Card>
             )}

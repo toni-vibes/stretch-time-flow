@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Bell, Clock } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,9 +13,20 @@ interface Reminder {
 
 interface ReminderBoxProps {
   reminders: Reminder[];
+  onDismiss: (reminderId: string) => void;
 }
 
-export const ReminderBox = ({ reminders }: ReminderBoxProps) => {
+export const ReminderBox = ({ reminders, onDismiss }: ReminderBoxProps) => {
+  const [dismissingIds, setDismissingIds] = useState<Set<string>>(new Set());
+
+  const handleDismiss = (reminderId: string) => {
+    setDismissingIds(prev => new Set([...prev, reminderId]));
+    // Delay the actual removal to allow fade animation
+    setTimeout(() => {
+      onDismiss(reminderId);
+    }, 300);
+  };
+
   if (!reminders || reminders.length === 0) {
     return null; // Conditional display - only show when reminders exist
   }
@@ -31,7 +42,9 @@ export const ReminderBox = ({ reminders }: ReminderBoxProps) => {
         {reminders.map((reminder) => (
           <div
             key={reminder.id}
-            className="flex items-center justify-between p-3 rounded-lg bg-card border border-border hover:bg-muted/50 transition-colors"
+            className={`flex items-center justify-between p-3 rounded-lg bg-card border border-border hover:bg-muted/50 transition-all duration-300 ${
+              dismissingIds.has(reminder.id) ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+            }`}
           >
             <div className="flex items-center gap-3">
               <div className={`w-3 h-3 rounded-full bg-${reminder.categoryColor}`} />
@@ -47,7 +60,13 @@ export const ReminderBox = ({ reminders }: ReminderBoxProps) => {
                 </div>
               </div>
             </div>
-            <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 px-3 text-xs"
+              onClick={() => handleDismiss(reminder.id)}
+              disabled={dismissingIds.has(reminder.id)}
+            >
               Dismiss
             </Button>
           </div>

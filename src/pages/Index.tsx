@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { WeeklyCalendar } from '@/components/WeeklyCalendar';
 import { QuickInput } from '@/components/QuickInput';
 import { ReminderBox } from '@/components/ReminderBox';
@@ -6,7 +7,7 @@ import { Header } from '@/components/Header';
 
 const Index = () => {
   // Sample reminders data - in real app this would come from state/API
-  const todayReminders = [
+  const [todayReminders, setTodayReminders] = useState([
     {
       id: '1',
       title: 'Morning Focus Block',
@@ -21,7 +22,11 @@ const Index = () => {
       category: 'Meetings',
       categoryColor: 'category-2'
     }
-  ];
+  ]);
+
+  const handleDismissReminder = (reminderId: string) => {
+    setTodayReminders(prev => prev.filter(reminder => reminder.id !== reminderId));
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -29,9 +34,14 @@ const Index = () => {
       
       <div className="max-w-7xl mx-auto px-6 py-6">
         {/* Reminders Box - Conditional Display */}
-        <div className="mb-6">
-          <ReminderBox reminders={todayReminders} />
-        </div>
+        {todayReminders.length > 0 && (
+          <div className="mb-6 animate-fade-in">
+            <ReminderBox 
+              reminders={todayReminders} 
+              onDismiss={handleDismissReminder}
+            />
+          </div>
+        )}
 
 
         {/* Weekly Schedule - Modified Display */}
