@@ -88,7 +88,7 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
           {/* Right Content Area */}
           <div className="flex-1 p-4">
             {activeTab === 'account' && (
-              <Card className="h-full p-4 pb-6 border border-border">
+              <Card className="h-full p-4 border border-border">
                 <div className="space-y-4 h-full flex flex-col">
                   {/* Username */}
                   <div className="space-y-2">
@@ -142,7 +142,7 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
                   <div className="flex-1" />
 
                   {/* Bottom Actions */}
-                  <div className="space-y-2 pt-2 border-t border-border">
+                  <div className="space-y-2 pt-2 pb-4 border-t border-border">
                     <Button 
                       variant="outline" 
                       className="w-full gap-2"
