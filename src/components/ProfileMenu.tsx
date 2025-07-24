@@ -142,7 +142,7 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
                   <div className="flex-1" />
 
                   {/* Bottom Actions */}
-                  <div className="space-y-2 pt-2 pb-4 border-t border-border">
+                  <div className="space-y-2 pt-2 pb-8 border-t border-border">
                     <Button 
                       variant="outline" 
                       className="w-full gap-2"
