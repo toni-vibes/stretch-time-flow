@@ -138,8 +138,8 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
                     <Button className="w-full">Save Changes</Button>
                   </div>
 
-                  {/* Spacer to push bottom actions down */}
-                  <div className="flex-1" />
+                  {/* Spacer for proper spacing */}
+                  <div className="mt-8"></div>
 
                   {/* Bottom Actions */}
                   <div className="space-y-2 pt-2 pb-8 border-t border-border">

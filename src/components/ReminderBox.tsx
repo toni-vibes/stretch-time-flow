@@ -35,7 +35,7 @@ export const ReminderBox = ({ reminders, onDismiss }: ReminderBoxProps) => {
   }
 
   return (
-    <Card className="p-4 shadow-soft bg-primary/5 border-primary/20">
+    <Card className="p-4 shadow-soft">
       <div className="flex items-center gap-3 mb-3">
         <Bell className="w-5 h-5 text-primary" />
         <h2 className="text-lg font-medium text-foreground">Reminders</h2>
