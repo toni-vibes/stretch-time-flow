@@ -50,7 +50,7 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
       />
       
       {/* Profile Menu Modal - Centered Rectangle with bottom spacing */}
-      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[720px] h-[500px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden mb-8">
+      <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[720px] h-[550px] p-0 shadow-2xl z-50 bg-card border border-border rounded-lg overflow-hidden mb-8">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
           <h3 className="text-lg font-semibold text-foreground">Profile Settings</h3>
