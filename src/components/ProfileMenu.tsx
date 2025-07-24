@@ -133,12 +133,12 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
                     </div>
                   </div>
 
-                  {/* Centered spacing for Save Changes */}
-                  <div className="py-4">
+                  {/* Save Changes */}
+                  <div className="mt-4 mb-6">
                     <Button className="w-full">Save Changes</Button>
                   </div>
 
-                  {/* Minimal spacer */}
+                  {/* Spacer to push bottom actions down */}
                   <div className="flex-1" />
 
                   {/* Bottom Actions */}
