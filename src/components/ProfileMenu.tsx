@@ -137,7 +137,7 @@ export const ProfileMenu = ({ isOpen, onClose }: ProfileMenuProps) => {
                   <Button className="w-full">Save Changes</Button>
 
                   {/* Spacer to push logout and delete to bottom - reduced spacing */}
-                  <div className="flex-1 min-h-[2rem]" />
+                  <div className="flex-1 min-h-[0.5rem]" />
 
                   {/* Bottom Actions */}
                   <div className="space-y-2 pt-2 border-t border-border">
