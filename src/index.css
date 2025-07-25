@@ -52,15 +52,15 @@ All colors MUST be HSL for proper theming
     --grid-header: 220 8% 96%;
     --time-slot-hover: 158 64% 98%;
     
-    /* Category colors - OCD friendly consistent palette */
-    --category-1: 158 64% 52%;       /* Primary green */
-    --category-2: 214 95% 65%;       /* Soft blue */
-    --category-3: 45 93% 65%;        /* Warm yellow */
-    --category-4: 15 85% 65%;        /* Coral */
-    --category-5: 262 83% 70%;       /* Purple */
-    --category-6: 185 84% 60%;       /* Teal */
-    --category-7: 32 85% 65%;        /* Orange */
-    --category-8: 320 75% 70%;       /* Pink */
+    /* Category colors - Subtle, functional palette for minimal distraction */
+    --category-1: 158 64% 52%;       /* Primary green - matches brand */
+    --category-2: 214 45% 55%;       /* Muted blue */
+    --category-3: 45 55% 60%;        /* Soft yellow */
+    --category-4: 15 55% 58%;        /* Subtle coral */
+    --category-5: 262 45% 58%;       /* Subdued purple */
+    --category-6: 185 45% 55%;       /* Gentle teal */
+    --category-7: 32 55% 58%;        /* Warm orange */
+    --category-8: 320 35% 60%;       /* Soft pink */
     
     /* Typography and spacing */
     --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -93,47 +93,70 @@ All colors MUST be HSL for proper theming
   }
 
   .dark {
-    /* Discord-inspired softer dark theme with less harsh contrast */
-    --background: 220 7% 14%;          /* Softer dark background #2f3136 */
-    --foreground: 210 11% 85%;         /* Softer white text */
-
-    --card: 220 7% 18%;                /* Slightly lighter cards #36393f */
-    --card-foreground: 210 11% 85%;
-
-    --popover: 220 7% 18%;
-    --popover-foreground: 210 11% 85%;
-
-    --primary: 158 64% 52%;            /* Keep the green primary */
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 220 6% 21%;           /* Softer secondary #40444b */
-    --secondary-foreground: 210 11% 85%;
-
-    --muted: 220 6% 21%;               /* Muted backgrounds */
-    --muted-foreground: 215 9% 65%;    /* Softer muted text */
-
-    --accent: 220 6% 21%;              /* Accent same as muted */
-    --accent-foreground: 210 11% 85%;
-
-    --destructive: 0 65% 55%;          /* Softer red */
-    --destructive-foreground: 210 11% 85%;
-
-    --border: 220 6% 23%;              /* Softer borders */
-    --input: 220 6% 23%;               /* Input backgrounds */
-    --ring: 158 64% 52%;               /* Focus ring green */
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Functional dark theme optimized for user guidance and focus */
     
-    /* Grid specific colors for dark mode */
+    /* Core hierarchy - Clear contrast between levels */
+    --background: 220 7% 12%;          /* Deep background for calm focus */
+    --foreground: 210 15% 92%;         /* High contrast text for readability */
+
+    /* Card system - Clear elevation hierarchy */
+    --card: 220 7% 16%;                /* Cards clearly elevated from background */
+    --card-foreground: 210 15% 92%;
+
+    --popover: 220 7% 16%;
+    --popover-foreground: 210 15% 92%;
+
+    /* Primary system - Strong green for key actions */
+    --primary: 158 64% 52%;            /* Vibrant green for primary CTAs */
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 158 64% 20%;      /* Subtle green backgrounds */
+    --primary-hover: 158 64% 45%;      /* Hover states */
+
+    /* Secondary system - Clear distinction from primary */
+    --secondary: 220 6% 24%;           /* Interactive but not primary */
+    --secondary-foreground: 210 12% 88%;
+
+    /* Muted system - Background elements that shouldn't distract */
+    --muted: 220 6% 20%;               /* Subtle background areas */
+    --muted-foreground: 215 8% 65%;    /* Subdued text */
+
+    /* Accent system - For subtle highlights and hovers */
+    --accent: 220 6% 22%;              /* Gentle hover states */
+    --accent-foreground: 210 12% 88%;
+
+    /* Destructive - Clear warning/danger */
+    --destructive: 0 75% 58%;          /* Clear red for warnings */
+    --destructive-foreground: 0 0% 100%;
+
+    /* Interactive elements - Clear focus indication */
+    --border: 220 6% 28%;              /* Visible but not distracting borders */
+    --input: 220 6% 20%;               /* Input fields clearly defined */
+    --ring: 158 64% 52%;               /* Green focus ring for consistency */
+    
+    /* Sidebar system */
+    --sidebar-background: 220 7% 14%;
+    --sidebar-foreground: 210 12% 88%;
+    --sidebar-primary: 158 64% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 6% 18%;
+    --sidebar-accent-foreground: 210 12% 88%;
+    --sidebar-border: 220 6% 25%;
+    --sidebar-ring: 158 64% 52%;
+    
+    /* Grid specific colors - Subtle but functional */
     --grid-line: 220 6% 25%;
-    --grid-header: 220 6% 19%;           /* Darker header background */
-    --time-slot-hover: 220 6% 23%;
+    --grid-header: 220 6% 18%;         /* Slightly elevated from background */
+    --time-slot-hover: 220 6% 24%;     /* Clear hover indication */
+    
+    /* Dark mode category colors - Muted for better focus and hierarchy */
+    --category-1: 158 45% 45%;         /* Muted green - primary brand */
+    --category-2: 214 35% 50%;         /* Soft blue */
+    --category-3: 45 45% 55%;          /* Gentle yellow */
+    --category-4: 15 45% 52%;          /* Subtle coral */
+    --category-5: 262 35% 52%;         /* Subdued purple */
+    --category-6: 185 35% 50%;         /* Calm teal */
+    --category-7: 32 45% 52%;          /* Warm orange */
+    --category-8: 320 25% 55%;         /* Very soft pink */
   }
 }
 
