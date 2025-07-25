@@ -4,15 +4,19 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 
-export const QuickInput = () => {
+interface QuickInputProps {
+  onAddTimeBlock?: (input: string) => void;
+}
+
+export const QuickInput = ({ onAddTimeBlock }: QuickInputProps) => {
   const [input, setInput] = useState('');
   const [isListening, setIsListening] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim()) {
-      // TODO: Process the natural language input
-      console.log('Processing:', input);
+      // Call the parent function to add the time block
+      onAddTimeBlock?.(input);
       setInput('');
     }
   };

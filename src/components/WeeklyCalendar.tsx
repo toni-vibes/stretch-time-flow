@@ -54,10 +54,16 @@ const sampleBlocks: TimeBlock[] = [
   },
 ];
 
-export const WeeklyCalendar = () => {
+interface WeeklyCalendarProps {
+  timeBlocks?: TimeBlock[];
+}
+
+export const WeeklyCalendar = ({ timeBlocks: propTimeBlocks }: WeeklyCalendarProps) => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
-  const [timeBlocks, setTimeBlocks] = useState<TimeBlock[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<{day: number, hour: number} | null>(null);
+  
+  // Use prop timeBlocks if provided, otherwise use empty array
+  const timeBlocks = propTimeBlocks || [];
 
   const getCurrentWeekDates = () => {
     const startOfWeek = new Date(currentWeek);
