@@ -45,7 +45,7 @@ export const ReminderBox = ({ reminders, onDismiss }: ReminderBoxProps) => {
         {reminders.map((reminder) => (
           <div
             key={reminder.id}
-            className={`flex items-center justify-between p-3 rounded-lg bg-card border border-border hover:bg-muted/50 transition-all duration-300 ${
+            className={`flex items-center justify-between p-3 rounded-lg bg-background border border-input hover:bg-muted/50 transition-all duration-300 ${
               dismissingIds.has(reminder.id) ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
             }`}
           >
