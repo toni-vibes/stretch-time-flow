@@ -25,27 +25,7 @@ const Index = () => {
   ]);
 
   // Time blocks state for the weekly calendar
-  const [timeBlocks, setTimeBlocks] = useState([
-    {
-      id: '1',
-      title: 'Morning Focus Block',
-      startTime: '9:00 AM',
-      endTime: '11:00 AM',
-      day: 0, // Monday
-      category: 'Deep Work',
-      categoryColor: 'category-1',
-      hasReminder: true,
-    },
-    {
-      id: '2',
-      title: 'Team Standup',
-      startTime: '2:00 PM',
-      endTime: '2:30 PM',
-      day: 1, // Tuesday
-      category: 'Meetings',
-      categoryColor: 'category-2',
-    },
-  ]);
+  const [timeBlocks, setTimeBlocks] = useState([]);
 
   const handleDismissReminder = (reminderId: string) => {
     setTodayReminders(prev => prev.filter(reminder => reminder.id !== reminderId));
